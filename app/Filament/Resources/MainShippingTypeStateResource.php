@@ -16,8 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MainShippingTypeStateResource extends Resource
 {
     protected static ?string $model = MainShippingTypeState::class;
+    protected static ?string $navigationGroup = 'System Management';
+    protected static ?string $navigationLabel = 'Main Shipping State';
+    protected static ?string $navigationParentItem = 'Shipping Types';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationIcon = 'heroicon-o-bars-arrow-down';
 
     public static function form(Form $form): Form
     {

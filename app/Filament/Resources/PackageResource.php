@@ -49,8 +49,8 @@ class PackageResource extends Resource
                 TextEntry::make('notes'),
                 Fieldset::make('package tracking')->schema([
                     View::make('infolists.components.package-status')
-                    ->columnStart(1)
-                ])
+                        ->columnStart(1)
+                ])->columnSpanFull()
             ]);
     }
 
