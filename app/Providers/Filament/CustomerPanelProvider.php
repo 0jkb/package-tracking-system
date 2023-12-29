@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Customer\Pages\Auth\MyLogoutResponse;
+use App\Filament\Customer\Pages\Auth\Register;
+use App\Http\Responses\LogoutResponse;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -17,16 +20,23 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
 
 class CustomerPanelProvider extends PanelProvider
 {
+
+    public function boot(): void
+    {
+        $this->app->bind(LogoutResponseContract::class, MyLogoutResponse::class);
+    }
+
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->id('customer')
             ->path('customer')
             ->login()
-            ->registration()
+            ->registration(Register::class)
             ->profile()
             ->viteTheme('resources/css/filament/admin/theme.css')
 

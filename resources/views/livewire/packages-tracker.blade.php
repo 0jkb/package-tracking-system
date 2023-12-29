@@ -1,14 +1,16 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
+<div class="flex justify-center items-center min-h-screen">
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg max-w-3xl">
 
     <form wire:submit.prevent="search" class="space-y-4">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Track Your Shipment</h2>
+        <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Enter your tracker number to get the latest package status and estimated delivery date.</p>
+
         <div class="space-y-2">
             {{ $this->form }}
         </div>
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">
-            Search
-        </button>
+        <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Search</button>
+
     </form>
 
     @if($searchResult)

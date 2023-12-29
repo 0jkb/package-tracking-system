@@ -38,6 +38,16 @@ class User extends Authenticatable
         'updated_at'
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        if (empty($attributes['user_type_id'])) {
+            $attributes['user_type_id'] = 1;
+        }
+
+        parent::__construct($attributes);
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

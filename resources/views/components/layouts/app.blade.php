@@ -19,7 +19,7 @@
         @vite('resources/css/app.css')
     </head>
 
-    <body class="bg-gray-100">
+    <body class="">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg">
         <div class="mx-auto max-w-6xl px-4">
@@ -33,9 +33,10 @@
                     </div>
                     <!-- Primary Navbar items -->
                     <div class="hidden items-center space-x-1 md:flex">
-                        <a href="\" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-green-500">Home</a>
-                        <a href="\packages-tracker" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-green-500">Packages Tracker</a>
-                        <a href="#" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-green-500">Contact</a>
+                        <a href="\" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Home</a>
+                        <a href="\packages-tracker" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Packages Tracker</a>
+                        <a href="\pricing" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Pricing</a>
+                        <a href="\contact" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Contact</a>
                     </div>
                 </div>
                 <!-- Mobile menu button -->
@@ -46,7 +47,7 @@
                 </div>
                 <!-- Secondary Navbar items -->
                 <div class="hidden items-center space-x-3 md:flex">
-                    <a href="\customer" class="rounded px-2 py-2 font-medium text-gray-500 transition duration-300 hover:bg-green-500 hover:text-white">Log In</a>
+                    <a href="\customer" class="rounded px-2 py-2 font-medium text-gray-500 transition duration-300 hover:bg-yellow-500 hover:text-white">Log In</a>
                     <a href="\customer\register" class="rounded bg-green-500 px-2 py-2 font-medium text-white transition duration-300 hover:bg-green-400">Sign Up</a>
                     <a href="\admin" class="rounded bg-red-500 px-2 py-2 font-medium text-white transition duration-300 hover:bg-red-400">Admin</a>
                 </div>
@@ -54,10 +55,10 @@
         </div>
         <!-- Mobile Menu -->
         <div class="mobile-menu hidden md:hidden">
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-green-500 hover:text-white">Home</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-green-500 hover:text-white">Features</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-green-500 hover:text-white">Pricing</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-green-500 hover:text-white">Contact</a>
+            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Home</a>
+            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Features</a>
+            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Pricing</a>
+            <a href="/contact" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Contact</a>
         </div>
     </nav>
 
