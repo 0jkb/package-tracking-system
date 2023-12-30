@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Customer\Pages\Auth\Login;
 use App\Filament\Customer\Pages\Auth\MyLogoutResponse;
 use App\Filament\Customer\Pages\Auth\Register;
 use App\Http\Responses\LogoutResponse;
@@ -35,7 +36,7 @@ class CustomerPanelProvider extends PanelProvider
         return $panel
             ->id('customer')
             ->path('customer')
-            ->login()
+            ->login(Login::class)
             ->registration(Register::class)
             ->profile()
             ->viteTheme('resources/css/filament/admin/theme.css')

@@ -25,6 +25,9 @@ class MyPackagesResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
 
+
+    protected static ?string $navigationLabel = "My Packages";
+
 //    public static function form(Form $form): Form
 //    {
 //        return $form

@@ -19,6 +19,8 @@ class UserTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Users Management';
+    protected static ?string $navigationParentItem = 'Users';
+
 
 
     public static function form(Form $form): Form
