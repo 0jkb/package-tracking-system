@@ -36,6 +36,7 @@
                         <a href="\" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Home</a>
                         <a href="\packages-tracker" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Packages Tracker</a>
                         <a href="\pricing" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Pricing</a>
+                        <a href="\shipping-calculator" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Shipping Calculator</a>
                         <a href="\contact" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Contact</a>
                     </div>
                 </div>

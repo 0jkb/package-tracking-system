@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', \App\Livewire\Home::class)->name('home');
 Route::get('/contact', \App\Livewire\Contact::class);
 Route::get('/pricing', \App\Livewire\Pricing::class);
+Route::get('/shipping-calculator', \App\Livewire\ShippingCalculator::class);
+
 
 
 Route::get('/packages-tracker',\App\Livewire\PackagesTracker::class);
