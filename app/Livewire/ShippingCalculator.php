@@ -4,19 +4,13 @@ namespace App\Livewire;
 
 use App\Models\PackageType;
 use App\Models\ShippingType;
-use App\Models\ShippingTypeState;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Livewire\Component;
-
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Illuminate\Contracts\View\View;
+
 class ShippingCalculator extends Component implements HasForms{
     use InteractsWithForms;
 

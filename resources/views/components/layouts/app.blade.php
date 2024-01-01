@@ -21,7 +21,7 @@
 
     <body class="">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white">
         <div class="mx-auto max-w-6xl px-4">
             <div class="flex justify-between">
                 <div class="flex space-x-7">

@@ -19,11 +19,13 @@ return new class extends Migration
             $table->foreignId('customer_id')->nullable()->constrained('customers');
             $table->foreignId('shipping_type_id')->constrained('shipping_types');
             $table->foreignId('shipping_type_state_id')->constrained('shipping_type_states');
+            $table->foreignId('delivered_by')->nullable()->constrained('users');
             $table->string('size');
             $table->decimal('price', 8, 2);
             $table->integer('ctn');
             $table->decimal('weight', 8, 2);
             $table->text('notes')->nullable();
+            $table->boolean('is_collected')->default(false);
             $table->timestamps();
         });
     }

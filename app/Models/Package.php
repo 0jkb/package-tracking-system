@@ -51,7 +51,7 @@ class Package extends Model
         });
     }
 
-    protected $fillable = ['container_id', 'package_type_id', 'customer_id', 'shipping_type_id', 'shipping_type_state_id', 'tracker_number', 'size', 'price', 'ctn', 'weight', 'notes', 'created_at', 'updated_at'];
+    protected $fillable = ['container_id', 'is_collected','package_type_id', 'customer_id', 'shipping_type_id', 'shipping_type_state_id', 'tracker_number', 'size', 'price', 'ctn', 'weight', 'notes', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -99,5 +99,16 @@ class Package extends Model
     public function packageStatusHistories()
     {
         return $this->hasMany('App\Models\PackageStatusHistory');
+    }
+
+    public function collectors()
+    {
+        return $this->hasMany(PackageCollector::class);
+    }
+
+
+    public function deliveredBy()
+    {
+        return $this->belongsTo(User::class, 'delivered_by');
     }
 }

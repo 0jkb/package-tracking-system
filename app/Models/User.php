@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -23,7 +26,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Branch[] $branches
  * @property UserType $userType
  */
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPanelShield;
     /**
@@ -33,6 +36,7 @@ class User extends Authenticatable
         'user_type_id',
         'name',
         'email',
+        'phone',
         'email_verified_at',
         'password',
         'remember_token',
@@ -45,8 +49,17 @@ class User extends Authenticatable
         if (empty($attributes['user_type_id'])) {
             $attributes['user_type_id'] = 1;
         }
-
         parent::__construct($attributes);
+    }
+
+
+    public function canAccessPanel(Panel $panel): bool{
+        if ($panel->getId() === "admin" && Auth::user()->userType->type_name == "admin") {
+            return true;
+        } else if ($panel->getId() === "customer") {
+            return true;
+        }
+        return false;
     }
 
 
