@@ -41,6 +41,8 @@ class ShippingTypeResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('')
+                    ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -48,6 +50,7 @@ class ShippingTypeResource extends Resource
                     ->required()
                     ->numeric()
                     ->prefix('$'),
+                        ])
             ]);
     }
 

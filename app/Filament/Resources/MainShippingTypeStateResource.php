@@ -27,9 +27,12 @@ class MainShippingTypeStateResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('')
+                    ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                        ])
             ]);
     }
 

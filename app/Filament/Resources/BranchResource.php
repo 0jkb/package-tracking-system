@@ -25,7 +25,10 @@ class BranchResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make()
+            ->schema([
                 Forms\Components\Select::make('user_id')
+                    ->label('Branch Admin')
                     ->relationship('user','name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
@@ -34,6 +37,7 @@ class BranchResource extends Resource
                 Forms\Components\TextInput::make('city')
                     ->required()
                     ->maxLength(255),
+                ])
             ]);
     }
 

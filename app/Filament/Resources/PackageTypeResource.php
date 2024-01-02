@@ -42,6 +42,8 @@ class PackageTypeResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('')
+                    ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -49,6 +51,7 @@ class PackageTypeResource extends Resource
                     ->required()
                     ->numeric()
                     ->prefix('$'),
+                        ])
             ]);
     }
 

@@ -45,12 +45,15 @@ class ContainerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('number')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('code')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\TextInput::make('number')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('code')
+                            ->required()
+                            ->maxLength(255),
+                        ])
             ]);
     }
 

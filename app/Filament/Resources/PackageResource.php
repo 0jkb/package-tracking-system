@@ -61,95 +61,104 @@ class PackageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('tracker_number')
-                    ->default('OR-' . random_int(100000, 999999))
-                    ->disabled()
-                    ->dehydrated()
-                    ->required()
-                    ->maxLength(32)
-                    ->unique(Package::class, 'tracker_number', ignoreRecord: true),
-                Forms\Components\Select::make('container_id')
-                    ->relationship('container','number')
-                    ->required(),
-                Forms\Components\Select::make('package_type_id')
-                    ->live()
-                    ->relationship('packageType','name')
-                    ->required(),
-                Forms\Components\Select::make('shipping_type_id')
-                    ->live()
-                    ->relationship('shippingType','name')
-                    ->required(),
-                Forms\Components\Select::make('customer_id')
-                    ->relationship('customer', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
+                Forms\Components\Section::make('Customer Information')
+                    ->schema([
+                        Forms\Components\TextInput::make('tracker_number')
+                            ->default('OR-' . random_int(100000, 999999))
+                            ->disabled()
+                            ->dehydrated()
                             ->required()
-                            ->maxLength(255),
-
-                        Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->maxLength(32)
+                            ->unique(Package::class, 'tracker_number', ignoreRecord: true),
+                        Forms\Components\Select::make('customer_id')
+                            ->relationship('customer', 'name')
+                            ->searchable()
+                            ->preload()
                             ->required()
-                            ->maxLength(255)
-                            ->unique(),
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
 
-                        Forms\Components\TextInput::make('city')
-                            ->maxLength(255)
-                    ])
-                    ->createOptionAction(function (Action $action) {
-                        return $action
-                            ->modalHeading('Create customer')
-                            ->modalButton('Create customer')
-                            ->modalWidth('lg');
-                    }),
-                Forms\Components\Select::make('shipping_type_state_id')
-                    ->relationship('shippingTypeState', 'status_name')
-                    ->searchable()
-                    ->preload()
-                    ->options(function (Get $get) {
-                        $shippingTypeId = $get('shipping_type_id');
+                                Forms\Components\TextInput::make('phone')
+                                    ->label('Phone')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->unique(),
 
-                        if (is_null($shippingTypeId)) {
-                            return collect();
-                        }
-                        return ShippingTypeState::query()
-                            ->where('shipping_type_id', $shippingTypeId)
-                            ->pluck('status_name', 'id');
-                    })
-                    ->required(),
-                Forms\Components\TextInput::make('size')
-                    ->live()
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Placeholder::make('price')
-                    ->content(function (Get $get ,Set $set){
-                        $defaultPrice = 1;
-                        $packagePrice = $defaultPrice;
-                        $shippingPrice = $defaultPrice;
-                        $size = $get('size') ?: $defaultPrice;
+                                Forms\Components\TextInput::make('city')
+                                    ->maxLength(255)
+                            ])
+                            ->createOptionAction(function (Action $action) {
+                                return $action
+                                    ->modalHeading('Create customer')
+                                    ->modalButton('Create customer')
+                                    ->modalWidth('lg');
+                            }),
+                    ]),
+                Forms\Components\Section::make('Package Information')
+                    ->schema([
+                        Forms\Components\Select::make('container_id')
+                            ->relationship('container','number')
+                            ->required(),
+                        Forms\Components\Select::make('package_type_id')
+                            ->live()
+                            ->relationship('packageType','name')
+                            ->required(),
+                        Forms\Components\Select::make('shipping_type_id')
+                            ->live()
+                            ->relationship('shippingType','name')
+                            ->required(),
 
-                        if ($packageTypeId = $get('package_type_id')) {
-                            $package = PackageType::find($packageTypeId);
-                            $packagePrice = $package ? $package->price : $defaultPrice;
-                        }
-                        if ($shippingTypeId = $get('shipping_type_id')) {
-                            $shipping = ShippingType::find($shippingTypeId);
-                            $shippingPrice = $shipping ? $shipping->price : $defaultPrice;
-                        }
-                        $total = $packagePrice * $shippingPrice * $size;
-                        return $total;
-                    }),
-                Forms\Components\TextInput::make('ctn')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('weight')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('notes')
-                    ->maxLength(65535),
-            ]);
+                        Forms\Components\Select::make('shipping_type_state_id')
+                            ->relationship('shippingTypeState', 'status_name')
+                            ->searchable()
+                            ->preload()
+                            ->options(function (Get $get) {
+                                $shippingTypeId = $get('shipping_type_id');
+
+                                if (is_null($shippingTypeId)) {
+                                    return collect();
+                                }
+                                return ShippingTypeState::query()
+                                    ->where('shipping_type_id', $shippingTypeId)
+                                    ->pluck('status_name', 'id');
+                            })
+                            ->required(),
+                        Forms\Components\TextInput::make('size')
+                            ->live()
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\Placeholder::make('price')
+                            ->content(function (Get $get ,Set $set){
+                                $defaultPrice = 1;
+                                $packagePrice = $defaultPrice;
+                                $shippingPrice = $defaultPrice;
+                                $size = $get('size') ?: $defaultPrice;
+
+                                if ($packageTypeId = $get('package_type_id')) {
+                                    $package = PackageType::find($packageTypeId);
+                                    $packagePrice = $package ? $package->price : $defaultPrice;
+                                }
+                                if ($shippingTypeId = $get('shipping_type_id')) {
+                                    $shipping = ShippingType::find($shippingTypeId);
+                                    $shippingPrice = $shipping ? $shipping->price : $defaultPrice;
+                                }
+                                $total = $packagePrice * $shippingPrice * $size;
+                                return $total;
+                            }),
+                        Forms\Components\TextInput::make('ctn')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('weight')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('notes')
+                            ->maxLength(65535),
+                        ])
+                    ]);
+
+
     }
 
     public static function table(Table $table): Table
