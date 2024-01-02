@@ -4,12 +4,14 @@ namespace App\Providers\Filament;
 
 use App\Filament\Customer\Pages\Auth\Login;
 use App\Filament\Customer\Pages\Auth\MyLogoutResponse;
+use App\Filament\Customer\Pages\Auth\profile;
 use App\Filament\Customer\Pages\Auth\Register;
 use App\Http\Responses\LogoutResponse;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
+use Filament\Pages\Auth\EditProfile;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -38,7 +40,7 @@ class CustomerPanelProvider extends PanelProvider
             ->path('customer')
             ->login(Login::class)
             ->registration(Register::class)
-            ->profile()
+            ->profile(profile::class)
             ->viteTheme('resources/css/filament/admin/theme.css')
 
             ->colors([

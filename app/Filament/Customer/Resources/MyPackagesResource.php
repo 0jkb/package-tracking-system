@@ -15,6 +15,8 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -60,11 +62,16 @@ class MyPackagesResource extends Resource
     {
         return $table
             ->query(
-                Package::with(['packageType', 'shippingType','shippingTypeState']) // Add other relationships as needed
+                Package::with(['packageType', 'shippingType','shippingTypeState'])
                 ->whereHas('customer', function ($query) {
                     $query->where('phone', auth()->user()->phone);
                 })
             )
+            ->filters([
+                Filter::make('is_collected')
+                    ->label('not collected')
+                    ->query(fn (Builder $query): Builder => $query->where('is_collected', false)),
+            ])
             ->columns([
                 TextColumn::make('tracker_number')
                     ->searchable(),
@@ -102,9 +109,7 @@ class MyPackagesResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+
             ->actions([
 //                Tables\Actions\EditAction::make(),
             ])
