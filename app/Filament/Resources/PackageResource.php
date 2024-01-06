@@ -164,10 +164,7 @@ class PackageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->filters([
-                Filter::make('is_collected')
-                    ->label('is_collected')
-            ])
+
             ->columns([
                 Tables\Columns\TextColumn::make('tracker_number')
                     ->searchable(),
@@ -213,7 +210,24 @@ class PackageResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('is_collected')
+                    ->label('is not collected')
+                    ->query(fn (Builder $query): Builder => $query->where('is_collected', false)),
+                Filter::make('customer_phone')
+                    ->form([
+                        TextInput::make('customer_phone')
+                            ->numeric()
+                            ->placeholder('Enter Customer Phone'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (empty($data['customer_phone'])) {
+                            return $query;
+                        }
+                        return $query->whereHas('customer', function (Builder $query) use ($data) {
+                            $query->where('phone', $data['customer_phone']);
+                        });
+                    })
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
