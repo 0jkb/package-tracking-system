@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PackageResource\Pages;
-use App\Filament\Resources\PackageResource\RelationManagers;
 use App\Models\Package;
 use App\Models\PackageType;
 use App\Models\ShippingType;
@@ -14,8 +13,6 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Infolists\Components\Fieldset;
-use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\View;
 use Filament\Infolists\Infolist;
@@ -23,12 +20,12 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Actions\Action;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class PackageResource extends Resource
 {
@@ -213,6 +210,10 @@ class PackageResource extends Resource
                 Filter::make('is_collected')
                     ->label('is not collected')
                     ->query(fn (Builder $query): Builder => $query->where('is_collected', false)),
+                SelectFilter::make('shippingType')
+                    ->relationship('shippingType', 'name'),
+                SelectFilter::make('packageType')
+                    ->relationship('packageType', 'name'),
                 Filter::make('customer_phone')
                     ->form([
                         TextInput::make('customer_phone')
@@ -224,7 +225,7 @@ class PackageResource extends Resource
                             return $query;
                         }
                         return $query->whereHas('customer', function (Builder $query) use ($data) {
-                            $query->where('phone', $data['customer_phone']);
+                            $query->where('phone', 'like', '%' . $data['customer_phone'] . '%');
                         });
                     })
 

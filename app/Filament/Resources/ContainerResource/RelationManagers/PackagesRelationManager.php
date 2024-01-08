@@ -8,6 +8,7 @@ use App\Models\ShippingType;
 use App\Models\ShippingTypeState;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -89,7 +90,7 @@ class PackagesRelationManager extends RelationManager
                     ->live()
                     ->required()
                     ->numeric(),
-                Forms\Components\Placeholder::make('price')
+                Placeholder::make('price')
                     ->content(function (Get $get ,Set $set){
                         $defaultPrice = 1;
                         $packagePrice = $defaultPrice;
@@ -124,6 +125,9 @@ class PackagesRelationManager extends RelationManager
             ->recordTitleAttribute('tracker_number')
             ->columns([
                 Tables\Columns\TextColumn::make('tracker_number')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_collected')
+                    ->boolean()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('packageType.name')
                     ->numeric()

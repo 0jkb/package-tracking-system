@@ -18,63 +18,48 @@
         @filamentStyles
         @vite('resources/css/app.css')
     </head>
-
     <body class="">
-    <!-- Navigation -->
-    <nav class="bg-white">
-        <div class="mx-auto max-w-6xl px-4">
-            <div class="flex justify-between">
-                <div class="flex space-x-7">
-                    <div>
-                        <!-- Website Logo -->
-                        <a href="\" class="flex items-center px-2 py-4">
-                            <span class="text-lg font-semibold text-gray-500">ShippingTracker</span>
-                        </a>
-                    </div>
-                    <!-- Primary Navbar items -->
-                    <div class="hidden items-center space-x-1 md:flex">
-                        <a href="\" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Home</a>
-                        <a href="\packages-tracker" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Packages Tracker</a>
-                        <a href="\pricing" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Pricing</a>
-                        <a href="\shipping-calculator" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Shipping Calculator</a>
-                        <a href="\contact" class="px-2 py-4 font-semibold text-gray-500 transition duration-300 hover:text-yellow-500">Contact</a>
-                    </div>
+        <!-- Header Section -->
+        <header class="bg-orange-500 p-4 text-white">
+            <div class="container mx-auto flex items-center justify-between">
+                <!-- Left Side Content -->
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <a href="/" class="mr-4 text-lg font-bold text-4xl">PackageTrackingSystem</a>
+                    <!-- Navigation Links -->
+                    <nav class="hidden md:flex">
+                        <a href="{{ url('/') }}" class="mx-2 text-sm text-white {{ request()->is('/') ? 'underline' : 'hover:underline' }}">Home</a>
+                        <a href="{{ url('/packages-tracker') }}" class="mx-2 text-sm text-white {{ request()->is('packages-tracker') ? 'underline' : 'hover:underline' }}">Packages Tracker</a>
+                        <a href="{{ url('/pricing') }}" class="mx-2 text-sm text-white {{ request()->is('pricing') ? 'underline' : 'hover:underline' }}">Pricing</a>
+                        <a href="{{ url('/shipping-calculator') }}" class="mx-2 text-sm text-white {{ request()->is('shipping-calculator') ? 'underline' : 'hover:underline' }}">Shipping Calculator</a>
+                        <a href="{{ url('/contact') }}" class="mx-2 text-sm text-white {{ request()->is('contact') ? 'underline' : 'hover:underline' }}">Contact</a>
+                        <!-- Other navigation links -->
+                    </nav>
                 </div>
-                <!-- Mobile menu button -->
-                <div class="flex items-center md:hidden">
-                    <button class="mobile-menu-button">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
-                </div>
-                <!-- Secondary Navbar items -->
-                <div class="hidden items-center space-x-3 md:flex">
-                    <a href="\customer" class="rounded px-2 py-2 font-medium text-gray-500 transition duration-300 hover:bg-yellow-500 hover:text-white">Log In</a>
-                    <a href="\customer\register" class="rounded bg-green-500 px-2 py-2 font-medium text-white transition duration-300 hover:bg-green-400">Sign Up</a>
-                    <a href="\admin" class="rounded bg-red-500 px-2 py-2 font-medium text-white transition duration-300 hover:bg-red-400">Admin</a>
+
+                <!-- Right Side Content -->
+                <div class="flex items-center">
+                    <button href="\customer" class="mx-2 text-sm text-white hover:underline">Log In</button>
+                    <button href="\customer\register" class="mx-2 text-sm text-white hover:underline">Sign Up</button>
+                    <button href="\admin" class="mx-2 text-sm text-white hover:underline">Admin</button>
                 </div>
             </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden">
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Home</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Features</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Pricing</a>
-            <a href="/contact" class="block px-4 py-2 text-sm hover:bg-yellow-500 hover:text-white">Contact</a>
-        </div>
-    </nav>
+        </header>
 
-        {{ $slot }}
-    <!-- Footer -->
-    <footer class="bg-white">
-        <div class="mx-auto max-w-6xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
-            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023 ShippingTracker, Inc. All rights reserved.</p>
+        <!-- Main Content -->
+        <div class="container mx-auto mt-8 p-4">
+            <!-- Search and Content Section -->
+            <div class="rounded-lg">
+                {{ $slot }}
+
+            </div>
         </div>
-    </footer>
 
         @filamentScripts
         @vite('resources/js/app.js')
     </body>
 </html>
+
 
 <script>
     document.querySelector('.mobile-menu-button').addEventListener('click', function() {

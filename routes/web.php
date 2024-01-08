@@ -19,6 +19,5 @@ Route::get('/pricing', \App\Livewire\Pricing::class);
 Route::get('/shipping-calculator', \App\Livewire\ShippingCalculator::class);
 
 
-
 Route::get('/packages-tracker',\App\Livewire\PackagesTracker::class);
 
