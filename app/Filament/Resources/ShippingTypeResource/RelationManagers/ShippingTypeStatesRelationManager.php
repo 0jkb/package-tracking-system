@@ -33,13 +33,13 @@ class ShippingTypeStatesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('status_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('color')
-                    ->options([
-                        'red' => 'red',
-                        'blue' => 'blue'
-
-                    ]),
-                IconPicker::make('icon')
+//                Forms\Components\Select::make('color')
+//                    ->options([
+//                        'red' => 'red',
+//                        'blue' => 'blue'
+//
+//                    ]),
+//                IconPicker::make('icon')
             ]);
     }
 
@@ -49,9 +49,9 @@ class ShippingTypeStatesRelationManager extends RelationManager
             ->recordTitleAttribute('status_name')
             ->columns([
                 Tables\Columns\TextColumn::make('status_name'),
-                Tables\Columns\ColorColumn::make('color'),
-                IconColumn::make('icon')
-                ,
+//                Tables\Columns\ColorColumn::make('color'),
+//                IconColumn::make('icon')
+
 
             ])
             ->filters([

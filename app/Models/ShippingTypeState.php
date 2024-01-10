@@ -21,7 +21,7 @@ class ShippingTypeState extends Model
     /**
      * @var array
      */
-    protected $fillable = ['shipping_type_id', 'status_name', 'color', 'icon', 'created_at', 'updated_at'];
+    protected $fillable = ['shipping_type_id', 'status_name', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

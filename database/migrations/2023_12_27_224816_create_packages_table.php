@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignId('delivered_by')->nullable()->constrained('users');
             $table->string('size');
             $table->decimal('price', 8, 2);
-            $table->integer('ctn');
-            $table->decimal('weight', 8, 2);
+            $table->integer('ctn')->nullable();;
+            $table->decimal('weight', 8, 2)->nullable();;
             $table->text('notes')->nullable();
             $table->boolean('is_collected')->default(false);
             $table->timestamps();

@@ -92,21 +92,12 @@ class PackageResource extends Resource
                                     ->modalButton('Create customer')
                                     ->modalWidth('lg');
                             }),
-                    ]),
-                Forms\Components\Section::make('Package Information')
+                    ])->columns(2),
+                Forms\Components\Section::make('Container & State')
                     ->schema([
                         Forms\Components\Select::make('container_id')
                             ->relationship('container','number')
                             ->required(),
-                        Forms\Components\Select::make('package_type_id')
-                            ->live()
-                            ->relationship('packageType','name')
-                            ->required(),
-                        Forms\Components\Select::make('shipping_type_id')
-                            ->live()
-                            ->relationship('shippingType','name')
-                            ->required(),
-
                         Forms\Components\Select::make('shipping_type_state_id')
                             ->relationship('shippingTypeState', 'status_name')
                             ->searchable()
@@ -122,6 +113,20 @@ class PackageResource extends Resource
                                     ->pluck('status_name', 'id');
                             })
                             ->required(),
+                    ])->columns(2),
+                Forms\Components\Section::make('Package Information')
+                    ->schema([
+
+                        Forms\Components\Select::make('package_type_id')
+                            ->live()
+                            ->relationship('packageType','name')
+                            ->required(),
+                        Forms\Components\Select::make('shipping_type_id')
+                            ->live()
+                            ->relationship('shippingType','name')
+                            ->required(),
+
+
                         Forms\Components\TextInput::make('size')
                             ->live()
                             ->required()
@@ -144,15 +149,17 @@ class PackageResource extends Resource
                                 $total = $packagePrice * $shippingPrice * $size;
                                 return $total;
                             }),
+
+                        ])->columns(4),
+                Forms\Components\Section::make('Detail optional')
+                    ->schema([
                         Forms\Components\TextInput::make('ctn')
-                            ->required()
                             ->numeric(),
                         Forms\Components\TextInput::make('weight')
-                            ->required()
                             ->numeric(),
-                        Forms\Components\TextInput::make('notes')
-                            ->maxLength(65535),
-                        ])
+                        Forms\Components\MarkdownEditor::make('notes')
+                            ->columnSpan('full'),
+                    ])->columns(2)
                     ]);
 
 
@@ -172,31 +179,34 @@ class PackageResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('packageType.name')
+                    ->label('Package')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('shippingType.name')
+                    ->label('Shipping')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('shippingTypeState.status_name')
+                    ->label('State')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('size')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('ctn')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('weight')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('notes')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+//                Tables\Columns\TextColumn::make('size')
+//                    ->searchable(),
+//                Tables\Columns\TextColumn::make('ctn')
+//                    ->numeric()
+//                    ->sortable(),
+//                Tables\Columns\TextColumn::make('weight')
+//                    ->numeric()
+//                    ->sortable(),
+//                Tables\Columns\TextColumn::make('notes')
+//                    ->searchable()
+//                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

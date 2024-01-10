@@ -39,9 +39,9 @@
 
                 <!-- Right Side Content -->
                 <div class="flex items-center">
-                    <button href="\customer" class="mx-2 text-sm text-white hover:underline">Log In</button>
-                    <button href="\customer\register" class="mx-2 text-sm text-white hover:underline">Sign Up</button>
-                    <button href="\admin" class="mx-2 text-sm text-white hover:underline">Admin</button>
+                    <a href="\customer" class="mx-2 text-sm text-white hover:underline">Log In</a>
+                    <a href="\customer\register" class="mx-2 text-sm text-white hover:underline">Sign Up</a>
+                    <a href="\admin" class="mx-2 text-sm text-white hover:underline">Admin</a>
                 </div>
             </div>
         </header>
@@ -57,6 +57,9 @@
 
         @filamentScripts
         @vite('resources/js/app.js')
+
+
+
     </body>
 </html>
 
