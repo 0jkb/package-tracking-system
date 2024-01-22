@@ -40,10 +40,12 @@ class PackageResource extends Resource
             ->schema([
                 TextEntry::make('tracker_number'),
                 TextEntry::make('customer.name'),
-                TextEntry::make('city'),
+                TextEntry::make('branch.name'),
                 TextEntry::make('size'),
                 TextEntry::make('price')
                 ->prefix('ORM : '),
+                TextEntry::make('discount')
+                    ->prefix('ORM : '),
                 TextEntry::make('ctn'),
                 TextEntry::make('weight'),
                 TextEntry::make('notes'),
@@ -93,8 +95,55 @@ class PackageResource extends Resource
                                     ->modalWidth('lg');
                             }),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Package Information')
+                    ->schema([
+
+                        Forms\Components\Select::make('package_type_id')
+                            ->live()
+                            ->relationship('packageType','name')
+                            ->required(),
+                        Forms\Components\Select::make('shipping_type_id')
+                            ->live()
+                            ->relationship('shippingType','name')
+                            ->required(),
+
+
+                        Forms\Components\TextInput::make('size')
+                            ->live()
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('discount')
+                            ->live()
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\Placeholder::make('price')
+                            ->content(function (Get $get ,Set $set){
+                                $defaultPrice = 1;
+                                $discountDefaultPrice = 0;
+                                $packagePrice = $defaultPrice;
+                                $shippingPrice = $defaultPrice;
+                                $size = $get('size') ?: $defaultPrice;
+                                $discount = $get('discount') ?: $discountDefaultPrice;
+
+                                if ($packageTypeId = $get('package_type_id')) {
+                                    $package = PackageType::find($packageTypeId);
+                                    $packagePrice = $package ? $package->price : $defaultPrice;
+                                }
+                                if ($shippingTypeId = $get('shipping_type_id')) {
+                                    $shipping = ShippingType::find($shippingTypeId);
+                                    $shippingPrice = $shipping ? $shipping->price : $defaultPrice;
+                                }
+                                $total = ($packagePrice * $shippingPrice * $size) - $discount;
+                                return $total;
+                            }),
+
+                        ])->columns(5),
                 Forms\Components\Section::make('Container & State')
                     ->schema([
+                        Forms\Components\Select::make('branch_id')
+                            ->relationship('branch','name')
+                            ->required(),
                         Forms\Components\Select::make('container_id')
                             ->relationship('container','number')
                             ->required(),
@@ -113,44 +162,7 @@ class PackageResource extends Resource
                                     ->pluck('status_name', 'id');
                             })
                             ->required(),
-                    ])->columns(2),
-                Forms\Components\Section::make('Package Information')
-                    ->schema([
-
-                        Forms\Components\Select::make('package_type_id')
-                            ->live()
-                            ->relationship('packageType','name')
-                            ->required(),
-                        Forms\Components\Select::make('shipping_type_id')
-                            ->live()
-                            ->relationship('shippingType','name')
-                            ->required(),
-
-
-                        Forms\Components\TextInput::make('size')
-                            ->live()
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\Placeholder::make('price')
-                            ->content(function (Get $get ,Set $set){
-                                $defaultPrice = 1;
-                                $packagePrice = $defaultPrice;
-                                $shippingPrice = $defaultPrice;
-                                $size = $get('size') ?: $defaultPrice;
-
-                                if ($packageTypeId = $get('package_type_id')) {
-                                    $package = PackageType::find($packageTypeId);
-                                    $packagePrice = $package ? $package->price : $defaultPrice;
-                                }
-                                if ($shippingTypeId = $get('shipping_type_id')) {
-                                    $shipping = ShippingType::find($shippingTypeId);
-                                    $shippingPrice = $shipping ? $shipping->price : $defaultPrice;
-                                }
-                                $total = $packagePrice * $shippingPrice * $size;
-                                return $total;
-                            }),
-
-                        ])->columns(4),
+                    ])->columns(3),
                 Forms\Components\Section::make('Detail optional')
                     ->schema([
                         Forms\Components\TextInput::make('ctn')
@@ -177,22 +189,33 @@ class PackageResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('container.number')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('branch.name')
+                    ->numeric()
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('packageType.name')
                     ->label('Package')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('customer.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('shippingType.name')
                     ->label('Shipping')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('shippingTypeState.status_name')
                     ->label('State')
                     ->numeric()
                     ->sortable(),
+//                Tables\Columns\TextColumn::make('discount')
+//                    ->money()
+//                    ->sortable(),
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),

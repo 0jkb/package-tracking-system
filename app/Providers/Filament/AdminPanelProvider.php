@@ -10,6 +10,7 @@ use Filament\Pages;
 use Filament\Pages\Auth\Login;
 use Filament\Panel;
 use Filament\PanelProvider;
+//use Filament\SpatieLaravelTranslatablePlugin;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Guava\FilamentIconPicker\Forms\IconPicker;
@@ -59,7 +60,10 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+//                SpatieLaravelTranslatablePlugin::make()
+//                ->defaultLocales(['en' , 'ar']),
+
             ])
             ;
     }

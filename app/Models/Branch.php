@@ -27,4 +27,8 @@ class Branch extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    public function packages()
+    {
+        return $this->hasMany('App\Models\Package');
+    }
 }

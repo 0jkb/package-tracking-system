@@ -20,8 +20,11 @@ return new class extends Migration
             $table->foreignId('shipping_type_id')->constrained('shipping_types');
             $table->foreignId('shipping_type_state_id')->constrained('shipping_type_states');
             $table->foreignId('delivered_by')->nullable()->constrained('users');
+            $table->foreignId('branch_id')->nullable()->constrained('branches');
             $table->string('size');
+            $table->decimal('discount', 8, 2);
             $table->decimal('price', 8, 2);
+
             $table->integer('ctn')->nullable();;
             $table->decimal('weight', 8, 2)->nullable();;
             $table->text('notes')->nullable();

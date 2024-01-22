@@ -51,7 +51,7 @@ class Package extends Model
         });
     }
 
-    protected $fillable = ['container_id', 'is_collected','package_type_id', 'customer_id', 'shipping_type_id', 'shipping_type_state_id', 'tracker_number', 'size', 'price', 'ctn', 'weight', 'notes', 'created_at', 'updated_at'];
+    protected $fillable = ['container_id', 'is_collected','package_type_id', 'branch_id','customer_id', 'shipping_type_id', 'shipping_type_state_id', 'tracker_number', 'size', 'discount', 'price','ctn', 'weight', 'notes', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -110,5 +110,10 @@ class Package extends Model
     public function deliveredBy()
     {
         return $this->belongsTo(User::class, 'delivered_by');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo('App\Models\Branch');
     }
 }

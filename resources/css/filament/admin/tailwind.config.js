@@ -15,6 +15,6 @@ export default {
         './vendor/filament/**/*.blade.php',
     ],
 
-    // plugins: [require("daisyui")],
+    // plugins: [require(" ")],
 
 }
